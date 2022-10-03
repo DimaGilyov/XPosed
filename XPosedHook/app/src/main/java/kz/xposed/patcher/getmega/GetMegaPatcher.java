@@ -9,8 +9,6 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import kz.xposed.patcher.Patcher;
 
-import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
-
 public class GetMegaPatcher implements Patcher {
     private static final String TAG = "GetMegaPatcher";
     @Override
@@ -21,7 +19,7 @@ public class GetMegaPatcher implements Patcher {
 
     private void SetNonRootedStateOnDevice(XC_LoadPackage.LoadPackageParam lpparam) {
         final Class<?> RootBeerClass = XposedHelpers.findClass("com.mega.app.fairplay.rootcheck.Root", lpparam.classLoader);
-        findAndHookMethod(RootBeerClass, "a","android.content.Context", new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(RootBeerClass, "a","android.content.Context", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 try {
