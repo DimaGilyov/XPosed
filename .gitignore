@@ -1,0 +1,15 @@
+*.iml
+/XPosedHook/.gradle
+/XPosedHook/local.properties
+/XPosedHook/.idea/caches
+/XPosedHook/.idea/libraries
+/XPosedHook/.idea/modules.xml
+/XPosedHook/.idea/workspace.xml
+/XPosedHook/.idea/navEditor.xml
+/XPosedHook/.idea/assetWizardSettings.xml
+/XPosedHook/.DS_Store
+/XPosedHook/build
+/XPosedHook/captures
+/XPosedHook/.externalNativeBuild
+/XPosedHook/.cxx
+/XPosedHook/local.properties
