@@ -6,29 +6,26 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-
 import kz.xposed.patcher.Patcher;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
-public class GetMegaPatcher implements Patcher {
-    private static final String TAG = "GetMegaPatcher";
+public class TestApkPatcher implements Patcher {
+
     @Override
     public void patch(XC_LoadPackage.LoadPackageParam lpparam) {
         XposedBridge.log("patch() -> " + lpparam.packageName);
-        SetNonRootedStateOnDevice(lpparam);
-    }
-
-    private void SetNonRootedStateOnDevice(XC_LoadPackage.LoadPackageParam lpparam) {
-        final Class<?> RootBeerClass = XposedHelpers.findClass("com.mega.app.fairplay.rootcheck.Root", lpparam.classLoader);
-        findAndHookMethod(RootBeerClass, "a","android.content.Context", new XC_MethodHook() {
+        final Class<?> MainActivityClass = XposedHelpers.findClass("com.example.android.testapk.MainActivity", lpparam.classLoader);
+        findAndHookMethod(MainActivityClass, "getCount", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 try {
-                    Log.d(TAG, "SetNonRootedStateOnDevice");
-                    param.setResult(false);
+                    String result = (String) param.getResult();
+                    Log.d("getCount", result);
+                    param.setResult(result + result);
+
                 } catch (Exception ex) {
-                    Log.e(TAG, ex.toString());
+                    Log.e("Error", ex.toString());
                 }
             }
         });

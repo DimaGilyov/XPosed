@@ -6,6 +6,7 @@ import de.robv.android.xposed.XposedBridge;
 
 import kz.xposed.patcher.Patcher;
 import kz.xposed.patcher.getmega.GetMegaPatcher;
+import kz.xposed.patcher.getmega.TestApkPatcher;
 
 public class Hook implements IXposedHookLoadPackage {
 
@@ -20,8 +21,11 @@ public class Hook implements IXposedHookLoadPackage {
 
     private Patcher CreatePatcherFactory(String packageName) {
         if ("com.example.android.testapk".equals(packageName)) {
+            return new TestApkPatcher();
+        } else if (packageName.equals("com.mega.app")) {
             return new GetMegaPatcher();
         }
+
         return null;
     }
 }
